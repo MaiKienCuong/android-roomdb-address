@@ -3,15 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     context=".MainActivity"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    >
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:background="@drawable/bgbordercardview">
+        android:background="@drawable/bgbordercardview"
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/tvName"

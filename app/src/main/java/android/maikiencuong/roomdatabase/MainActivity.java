@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity implements  SendingData{
     private AddressAdapter adapter;
     private List<Address> addressList;
     private int id=-1;
-    int index=-1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements  SendingData{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                index = position;
+                Toast.makeText(MainActivity.this, "dasdas", Toast.LENGTH_SHORT).show();
                 for (int i = 0; i < parent.getChildCount(); i++) {
                     parent.getChildAt(i).setBackgroundColor(Color.WHITE);
                 }
@@ -75,15 +75,13 @@ public class MainActivity extends AppCompatActivity implements  SendingData{
                 if (id != -1 && !address.getName().trim().isEmpty()) {
                     address.setId(id);
                     db.addressDao().update(address);
-                    adapter.notifyDataSetChanged();
-                    tvAdd.setText("");
-                    id = -1;
+
                 } else if (id == -1 && !address.getName().trim().isEmpty()) {
                     db.addressDao().insertAll(address);
-                    adapter.notifyDataSetChanged();
-                    tvAdd.setText("");
-                    id = -1;
                 }
+                adapter.notifyDataSetChanged();
+                tvAdd.setText("");
+                id = -1;
             }
         });
 

@@ -64,7 +64,6 @@ public class AddressAdapter extends BaseAdapter {
         });
 
         tvName.setText(position + 1 + ". " + address.getName());
-
         return view;
     }
 
