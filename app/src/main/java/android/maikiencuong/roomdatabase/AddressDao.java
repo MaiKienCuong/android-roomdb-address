@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -18,6 +19,9 @@ public interface AddressDao {
 
     @Query("SELECT * FROM Address WHERE name LIKE :name LIMIT 1")
     Address findByName(String name);
+
+    @Update
+    void update(Address address);
 
     @Insert
     void insertAll(Address... addresses);

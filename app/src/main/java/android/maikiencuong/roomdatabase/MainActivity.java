@@ -14,17 +14,19 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements  SendingData{
 
     private Button btnSave, btnCancel;
     private TextView tvAdd;
     private ListView listView;
     private AddressAdapter adapter;
     private List<Address> addressList;
-    private int index = -1;
+    private int id=-1;
+    int index=-1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +72,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Address address = new Address(tvAdd.getText().toString().trim());
-                if (!address.getName().trim().isEmpty()) {
+                if (id != -1 && !address.getName().trim().isEmpty()) {
+                    address.setId(id);
+                    db.addressDao().update(address);
+                    adapter.notifyDataSetChanged();
+                    tvAdd.setText("");
+                    id = -1;
+                } else if (id == -1 && !address.getName().trim().isEmpty()) {
                     db.addressDao().insertAll(address);
                     adapter.notifyDataSetChanged();
                     tvAdd.setText("");
+                    id = -1;
                 }
             }
         });
@@ -87,4 +96,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void sendData(Serializable obj) {
+        Address address= (Address) obj;
+        tvAdd.setText(address.getName());
+        id=address.getId();
+    }
 }

@@ -55,6 +55,14 @@ public class AddressAdapter extends BaseAdapter {
             }
         });
 
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SendingData sendingData = (SendingData) context;
+                sendingData.sendData(address);
+            }
+        });
+
         tvName.setText(position + 1 + ". " + address.getName());
 
         return view;
